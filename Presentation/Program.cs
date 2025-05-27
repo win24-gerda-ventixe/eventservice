@@ -30,11 +30,11 @@ builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(builder.Configura
 var app = builder.Build();
 app.MapOpenApi();
 
-app.UseSwagger();
 
 if (app.Environment.IsDevelopment())
 {
    
+    app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Event Service API");
