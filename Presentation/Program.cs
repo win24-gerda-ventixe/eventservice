@@ -5,6 +5,7 @@ using Infrastructure.Repositories;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using Infrastructure.Seeds;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -52,5 +53,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//using (var scope = app.Services.CreateScope())
+//{
+//    await AppDbSeeder.SeedEvents(scope.ServiceProvider);
+//}
 
 app.Run();
