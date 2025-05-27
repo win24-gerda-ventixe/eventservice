@@ -31,11 +31,18 @@ var app = builder.Build();
 app.MapOpenApi();
 
 app.UseSwagger();
-app.UseSwaggerUI(c =>
+
+if (app.Environment.IsDevelopment())
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Event Service API");
-    c.RoutePrefix = string.Empty; 
-});
+   
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Event Service API");
+        c.RoutePrefix = string.Empty; 
+    });
+}
+
+
 
 app.UseHttpsRedirection();
 
