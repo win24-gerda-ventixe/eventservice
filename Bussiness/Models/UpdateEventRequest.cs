@@ -1,9 +1,8 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Bussiness.Models;
 
-public class CreateEventRequest
+public class UpdateEventRequest
 {
     [Required]
     [MaxLength(100)]
@@ -17,7 +16,7 @@ public class CreateEventRequest
     [MaxLength(200)]
     public string Location { get; set; } = null!;
 
-    [Range(0, double.MaxValue, ErrorMessage = "Price must be a non-negative number.")]
+    [Range(0, double.MaxValue, ErrorMessage = "Price must be non-negative.")]
     public decimal Price { get; set; }
 
     [Required]

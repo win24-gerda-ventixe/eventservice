@@ -80,5 +80,42 @@ public class EventRepository(DataContext context) : BaseRepository<EventEntity>(
     //        };
     //    }
     //}
+    //public override async Task<RepositoryResult> UpdateAsync(EventEntity entity)
+    //{
+    //    try
+    //    {
+    //        var existing = await _table.Include(x => x.Packages).FirstOrDefaultAsync(x => x.Id == entity.Id);
+    //        if (existing == null)
+    //            return new RepositoryResult { Success = false, Error = "Event not found." };
+
+    //        _context.Entry(existing).CurrentValues.SetValues(entity);
+    //        await _context.SaveChangesAsync();
+
+    //        return new RepositoryResult { Success = true };
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return new RepositoryResult { Success = false, Error = ex.Message };
+    //    }
+    //}
+
+    //public override async Task<RepositoryResult> DeleteAsync(EventEntity entity)
+    //{
+    //    try
+    //    {
+    //        var existing = await _table.Include(x => x.Packages).FirstOrDefaultAsync(x => x.Id == entity.Id);
+    //        if (existing == null)
+    //            return new RepositoryResult { Success = false, Error = "Event not found." };
+
+    //        _table.Remove(existing);
+    //        await _context.SaveChangesAsync();
+
+    //        return new RepositoryResult { Success = true };
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return new RepositoryResult { Success = false, Error = ex.Message };
+    //    }
+    //}
 
 }

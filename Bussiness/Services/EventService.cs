@@ -90,7 +90,41 @@ public class EventService(IEventRepository eventRepository) : IEventService
         return new EventResult<Event?> { Success = false, Error = "Event not found" };
     }
 
+    public async Task<EventResult> UpdateEventAsync(string id, UpdateEventRequest request)
+    {
+        var existing = await _eventRepository.GetAsync(e => e.Id == id);
+        if (!existing.Success || existing.Result == null)
+        {
+            return new EventResult { Success = false, Error = "Event not found." };
+        }
 
+        var eventEntity = existing.Result;
+
+        eventEntity.Title = request.Title ?? eventEntity.Title;
+        eventEntity.Description = request.Description ?? eventEntity.Description;
+        eventEntity.Location = request.Location ?? eventEntity.Location;
+        eventEntity.Price = request.Price != 0 ? request.Price : eventEntity.Price;
+        eventEntity.EventDate = request.EventDate != default ? request.EventDate : eventEntity.EventDate;
+        eventEntity.Time = request.Time != default ? request.Time : eventEntity.Time;
+        eventEntity.Image = request.Image ?? eventEntity.Image;
+        eventEntity.Category = request.Category ?? eventEntity.Category;
+        eventEntity.Status = request.Status ?? eventEntity.Status;
+
+        var result = await _eventRepository.UpdateAsync(eventEntity);
+        return new EventResult { Success = result.Success, Error = result.Error };
+    }
+
+    public async Task<EventResult> DeleteEventAsync(string id)
+    {
+        var existing = await _eventRepository.GetAsync(e => e.Id == id);
+        if (!existing.Success || existing.Result == null)
+        {
+            return new EventResult { Success = false, Error = "Event not found." };
+        }
+
+        var result = await _eventRepository.DeleteAsync(existing.Result);
+        return new EventResult { Success = result.Success, Error = result.Error };
+    }
 
 
     //public async Task<IEnumerable<EventEntity>> GetByStatusAsync(string status)

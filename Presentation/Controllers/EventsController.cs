@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Bussiness.Services;
 using Bussiness.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Presentation.Controllers;
 
@@ -27,7 +28,7 @@ public class EventsController(IEventService eventService) : ControllerBase
         return currentEvent != null ? Ok(currentEvent) : NotFound();
 
     }
-
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<IActionResult> Create(CreateEventRequest request)
     {
@@ -38,4 +39,24 @@ public class EventsController(IEventService eventService) : ControllerBase
         return result.Success ? Ok() : StatusCode(500, result.Error);
 
     }
+
+    [Authorize(Roles = "Admin")]
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(string id, UpdateEventRequest request)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var result = await _eventService.UpdateEventAsync(id, request);
+        return result.Success ? Ok() : NotFound(result.Error);
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(string id)
+    {
+        var result = await _eventService.DeleteEventAsync(id);
+        return result.Success ? Ok() : NotFound(result.Error);
+    }
+
 }
