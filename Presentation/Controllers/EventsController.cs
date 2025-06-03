@@ -42,7 +42,7 @@ public class EventsController(IEventService eventService) : ControllerBase
 
     [Authorize(Roles = "Admin")]
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(string id, UpdateEventRequest request)
+    public async Task<IActionResult> Update(string id, [FromBody] UpdateEventRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
