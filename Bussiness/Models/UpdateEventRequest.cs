@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bussiness.Models;
 
@@ -16,7 +17,8 @@ public class UpdateEventRequest
     [MaxLength(200)]
     public string Location { get; set; } = null!;
 
-    [Range(0, double.MaxValue, ErrorMessage = "Price must be non-negative.")]
+    //[Range(0, double.MaxValue, ErrorMessage = "Price must be non-negative.")]
+    [Column(TypeName = "decimal(18,2)")]
     public decimal Price { get; set; }
 
     [Required]
@@ -25,7 +27,7 @@ public class UpdateEventRequest
     [Required]
     public DateTime Time { get; set; }
 
-    [MaxLength(2048)]
+    //[MaxLength(2048)]
     public string? Image { get; set; }
 
     [MaxLength(50)]
