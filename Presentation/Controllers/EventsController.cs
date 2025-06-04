@@ -28,12 +28,14 @@ public class EventsController(IEventService eventService) : ControllerBase
         return currentEvent != null ? Ok(currentEvent) : NotFound();
 
     }
+
+
     [Authorize(Roles = "Admin")]
-    [HttpPost]
-    public async Task<IActionResult> Create(CreateEventRequest request)
+    [HttpPost("create")]
+    public async Task<IActionResult> Create([FromBody] CreateEventRequest request)
     {
-        if (!ModelState.IsValid)
-            return BadRequest(ModelState);
+        //if (!ModelState.IsValid)
+        //    return BadRequest(ModelState);
 
         var result = await _eventService.CreateEventAsync(request);
         return result.Success ? Ok() : StatusCode(500, result.Error);

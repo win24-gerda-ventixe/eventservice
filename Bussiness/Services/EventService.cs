@@ -15,7 +15,7 @@ public class EventService(IEventRepository eventRepository) : IEventService
         {
             var eventEntity = new EventEntity
             {
-                Id = Guid.NewGuid().ToString(),
+        
                 Title = request.Title,
                 Description = request.Description,
                 Location = request.Location,
@@ -34,6 +34,7 @@ public class EventService(IEventRepository eventRepository) : IEventService
         }
         catch (Exception ex)
         {
+            Console.WriteLine("Exception: " + ex);
             return new EventResult
             {
                 Success = false,

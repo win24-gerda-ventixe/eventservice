@@ -30,12 +30,16 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         try
         {
             _table.Add(entity);
-            await _context.SaveChangesAsync();
-            return new RepositoryResult { Success = true };
+            var result = await _context.SaveChangesAsync();
+            return result > 0
+                ? new RepositoryResult { Success = true }
+                : new RepositoryResult { Success = false, Error = "Failed to add entity" };
+            
         }
         catch (Exception ex)
         {
-            return new RepositoryResult<IEnumerable<TEntity>>
+            return new RepositoryResult
+            //return new RepositoryResult<IEnumerable<TEntity>>
             {
                 Success = false,
                 Error = ex.Message,
