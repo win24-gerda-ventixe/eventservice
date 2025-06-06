@@ -2,6 +2,14 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Infrastructure.Entities;
+// There is a logical mistake, i declare some fields as required,
+// but in the constructor i set them to null.
+// I am aware it needs to be fixed but since it's my entitiy, i was unsure whether
+// applying new migrations and updating the database would affect the existing data.
+
+// I would also probably consider creating a separate microservice for event packages
+// and let events focus on the event details only.
+
 
 public class EventEntity
 {

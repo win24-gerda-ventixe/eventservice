@@ -39,7 +39,6 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         catch (Exception ex)
         {
             return new RepositoryResult
-            //return new RepositoryResult<IEnumerable<TEntity>>
             {
                 Success = false,
                 Error = ex.Message,
